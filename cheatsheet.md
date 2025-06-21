@@ -1,9 +1,6 @@
-
-
-
  Cheatsheet：大多数都是我自己做了题目后感觉会有用而准备的资料，主要注重前几题简单题（因为后面的应该做不出来，但是复习的时候也涵盖了这部分）也些有部分借鉴了群里大佬的资料
 
-基础概念：
+**基础概念：**
 
 双指针：
 ```
@@ -36,7 +33,9 @@ def search(self, nums: List[int], target: int) -> int:
 ```
 
 分割字符串：
-s = input().split(";") （常规）
+（常规）
+```
+s = input().split(";") 
 s = s[:3]
 l = []
 for i in range(3):
@@ -45,8 +44,11 @@ for i in range(3):
     else:
         l.append("0")
 print(l)
+```
 
-s = input().split(";") （try-except方法）
+（try-except方法）
+```
+s = input().split(";")
 s = s[:3]
 l = []
 for i in range(3):
@@ -55,7 +57,10 @@ for i in range(3):
     except:
         l.append("0")
 print(l)
+```
+
 将整数分为k份（dfs+dp，lru_cache记忆化递归整数划分计数）：
+```
 from functools import lru_cache
 
 n, k = map(int, input().split())
@@ -71,15 +76,21 @@ def count_partitions(n, k, m):
 
 # 最大数字不能超过 n，初始调用 m 从 n 开始
 print(count_partitions(n, k, n))
+```
+
 Febonacci：
- 
-def fraction(self, cont: List[int]) -> List[int]: （公式）
+ （公式）
+```
+def fraction(self, cont: List[int]) -> List[int]:
         n, m = 0, 1
         for a in cont[::-1]:
             n, m = m, (m * a + n)
         return [m, n]
+```
 
-def fibonacci(n): （dp方法）
+ （dp方法）
+```
+def fibonacci(n):
     if n <= 1:
         return n
     dp = [0] * (n + 1)
@@ -88,15 +99,21 @@ def fibonacci(n): （dp方法）
     for i in range(2, n + 1):
         dp[i] = dp[i - 1] + dp[i - 2]  # 状态转移方程
     return dp[n]
+```
 
-def replaceElements(self, arr: List[int]) -> List[int]:  （从后开始的dp（数组元素替换））
+ （从后开始的dp（数组元素替换））
+```
+def replaceElements(self, arr: List[int]) -> List[int]: 
     e = -1
     for i in reversed(range(len(arr))):
         x = arr[i]
         arr[i] = e
         e = max(x, e)
     return arr
+```
+
 比较经典的dp（？（最大利润）：
+```
 def maxProfit(self, prices: List[int]) -> int:
     n = len(prices)
     dp = [0] * n
@@ -105,7 +122,10 @@ def maxProfit(self, prices: List[int]) -> int:
         minp = min(minp, prices[i])
         dp[i] = max(dp[i - 1], prices[i] - minp)
     return dp[-1]
+```
+
 合并区间：
+```
 def merge(self, intervals: List[List[int]]) -> List[List[int]]:
     ans = []
     intervals.sort(key=lambda x: x[0])
@@ -115,7 +135,10 @@ def merge(self, intervals: List[List[int]]) -> List[List[int]]:
         else:
             ans[-1][1] = max(ans[-1][1], i[1])
     return ans
+```
+
 矩阵乘加：
+```
 def mat():
     r, c = map(int, input().split())
     matrix = [list(map(int, input().split())) for _ in range(r)]
@@ -169,7 +192,10 @@ while True:
         print("".join(mark))
     except EOFError:
         break
+```
+
 单调栈：
+```
 arr = [2, 1, 2, 4, 3]
 stack = []
 res = [-1] * len(arr)
@@ -181,7 +207,10 @@ for i, v in enumerate(arr):
     stack.append(i)
 
 print(res)  # 输出: [4, 2, 4, -1, -1]
+```
+
 合法出栈：
+```
 x = input().strip()
 
 try:
@@ -213,7 +242,10 @@ try:
 
 except EOFError:
     pass
+```
+
 中序转后序表达式（stack）：
+```
 def precedence(op):
     if op in ('*', '/'):
         return 2
@@ -251,7 +283,10 @@ n = int(input())
 for _ in range(n):
     expr = input().strip()
     print(to_postfix(expr))
+```
+
 实现堆结构（heap）：
+```
 import heapq
 
 n = int(input())
@@ -268,7 +303,10 @@ for _ in range(n):
         # 弹出最小元素
         if heap:
             print(heapq.heappop(heap))
+```
+
 FBI树（字符串+dfs）：
+```
 def get_type(s):
     if all(c == '0' for c in s):
         return 'B'
@@ -290,7 +328,10 @@ N = int(input())
 s = input().strip()
 result = build(s)
 print(result)
+```
+
 找最大值（滑动窗口）：
+```
 def maximumUniqueSubarray(nums):
     seen = set()  # 用于记录当前窗口内的元素，判断是否重复
     left = 0  # 滑动窗口的左边界
@@ -309,7 +350,10 @@ def maximumUniqueSubarray(nums):
         max_sum = max(max_sum, current_sum)  # 更新最大和
 
     return max_sum
+```
+
 链表反转：
+```
 class ListNode:
     def __init__(self, val=0, next=None):
         self.val = val
@@ -323,13 +367,20 @@ class Solution:
             vals.append(current_node.val)
             current_node = current_node.next
         return vals == vals[::-1]
+```
+
 二叉树（后序&层序）：
-def maxDepth(self, root: Optional[TreeNode]) -> int: （递归）
+（递归）
+```
+def maxDepth(self, root: Optional[TreeNode]) -> int: 
     if not root:
         return 0
 return max(self.maxDepth(root.left), self.maxDepth(root.right)) + 1
+```
 
-def maxDepth(self, root: TreeNode) -> int: （bfs）
+（bfs）
+```
+def maxDepth(self, root: TreeNode) -> int: 
     if not root:
         return 0
     queue, res = [root], 0
@@ -343,7 +394,10 @@ def maxDepth(self, root: TreeNode) -> int: （bfs）
         queue = tmp
         res += 1
     return res
+```
+
 二叉树直径（深度dfs）：
+```
 class SomeClass1:
     def __init__(self):
         self.max = 0  # 用于记录二叉树的直径（最长路径长度 ）
@@ -360,13 +414,19 @@ class SomeClass1:
         # 每个结点都判断左子树+右子树的高度和是否大于当前 self.max，更新最大值（直径可能的情况 ）
         self.max = max(self.max, l + r)  
         # 返回当前结点为根的子树的最高高度（供父结点计算使用 ）
-        return max(l, r) + 1  
+        return max(l, r) + 1
+```
+
 节点个数：
+```
 def countNodes(root):
     if not root:
         return 0
     return 1 + countNodes(root.left) + countNodes(root.right)
+```
+
 回溯（马士游历（马走日））：
+```
 import sys
 sys.setrecursionlimit(100000)  # 防止递归栈溢出
 
@@ -400,11 +460,17 @@ for _ in range(T):
     n, m, x, y = map(int, input().split())
     result = knight_tour(n, m, x, y)
     print(result)
-一些包&函数&方法：
+```
+
+**一些包&函数&方法：**
+
 前中后序：
- 
- 
+
+![(https://github.com/qianyi21/img/blob/main/image.png?raw=true)](https://raw.githubusercontent.com/qianyi21/img/b85ccdd6476f3be13ca83412b10cbf9dc209bd1a/image.png)
+![https://github.com/qianyi21/img/blob/main/image.png?raw=true](https://raw.githubusercontent.com/qianyi21/img/338cbaedb710fa72f69083f16b12fa2aa21c2256/image.png)
+
 zip函数：
+```
 n = int(input())
 res = []
 ind = []
@@ -417,7 +483,10 @@ b.sort(key=lambda x: [-x[0][0], -x[0][1]])
 
 for i, j in enumerate(b[:5], start=1):
     print(f"#{i}{j[1]+1} {j[0][0]}")
+```
+
 counter包：
+```
 from collections import Counter
 
 n, m = map(int, input().split())
@@ -434,7 +503,10 @@ min_total = sum(c * p for c, p in zip(counts, tags_sorted))
 max_total = sum(c * p for c, p in zip(counts, reversed(tags_sorted)))
 
 print(min_total, max_total)
+```
+
 inf：
+```
 prices = list(map(int, input().split()))
 min_price = float('inf')
 max_profit = 0
@@ -444,7 +516,10 @@ for price in prices:
     else:
         max_profit = max(max_profit, price - min_price)
 print(max_profit)
+```
+
 进制（stack）： 
+```
 a = int(input())
 stack = []
 if a == 0:
@@ -455,8 +530,12 @@ else:
         a //= 8
     while stack:
         print(stack.pop(), end="")
-我未必做得出来的部分：
+```
+
+**（有点看不懂的部分）：**
+
 归并排序（逆序对）：
+```
 import sys
 sys.setrecursionlimit(1000000)
 
@@ -498,7 +577,10 @@ while True:
     for _ in range(n):
         arr.append(int(sys.stdin.readline()))
     print(merge_sort(arr))
+```
+
 （平衡）二叉树搜索树：将有序数组转换为二叉树：
+```
 class TreeNode:
     def __init__(self, val=0, left=None, right=None):
         self.val = val  # 节点值
@@ -517,7 +599,10 @@ class Solution:
         # 递归构建右子树（数组右半部分 ）
         root.right = self.sortedArrayToBST(nums[mid+1:])  
         return root  # 返回构建好的平衡二叉搜索树根节点
+```
+
 MST（兔子与星空，基于并查集（Union-Find）的 Kruskal 算法）：
+```
 # 并查集：用于判断是否成环
 class UnionFind:
     def __init__(self, size):
@@ -561,8 +646,11 @@ for weight, u, v in edges:
         if edge_count == n - 1:  # 选够 n-1 条边，生成树已形成
             break
 
-print(mst_weight)  
+print(mst_weight)
+```
+
 根据二叉树前中序序列建图（前序 + 中序 → 后序遍历（递归构建二叉树））：
+```
 def build_postorder(preorder, inorder):
     if not preorder:
         return ''
@@ -590,7 +678,10 @@ for i in range(0, len(lines), 2):
     preorder = lines[i].strip()
     inorder = lines[i+1].strip()
     print(build_postorder(preorder, inorder))
+```
+
 Disjoint set（宗教信仰，并查集统计连通分量）：
+```
 def find(parent, x):
     # 查找根节点，路径压缩优化
     if parent[x] != x:
@@ -625,7 +716,10 @@ while True:
 
     print(f"Case {case_num}: {len(roots)}")
     case_num += 1
+```
+
 献给安吉尔侬的花（地图寻路，bfs）：
+```
 from collections import deque
 
 def bfs(maps, start, end, R, C):
@@ -669,7 +763,10 @@ for _ in range(T):
         print(res)
     else:
         print("oop!")
+```
+
 词梯（bfs）：
+```
 from collections import deque
 
 def can_link(w1, w2):
@@ -740,7 +837,10 @@ else:
         # 路径是逆序的，反转
         path.reverse()
         print(" ".join(path))
-找最大连续子数组和（Kadane 算法）：
+```
+
+找最大连续子数组和（Kadane算法）：
+```
 arr = list(map(int, input().split(","))) 
 n = len(arr)  # 商品数量
 
@@ -774,7 +874,10 @@ for i in range(start, end + 1):
 
 # 最大价值（考虑了放回一个商品的情况）
 print(remove_one_max)
+```
+
 拓扑（海军，基于拓扑排序判断有向图是否有环）：
+```
 from collections import deque
 import sys
 
@@ -808,7 +911,10 @@ for _ in range(T):
 
     # 判断是否有环：拓扑排序节点数 == N 则无环，否则有环
     print("No" if count == N else "Yes")
+```
+
 Dijkstra（走山路（最小体力、路径））：
+```
 import heapq
 import sys
 input = sys.stdin.readline
@@ -866,7 +972,10 @@ def dijkstra(sx, sy, ex, ey):
 
 for sx, sy, ex, ey in queries:
     print(dijkstra(sx, sy, ex, ey))
-Trie（电话号码，基于字典树判断电话号码是否 一致）：
+```
+
+Trie（电话号码，基于字典树判断电话号码是否一致）：
+```
 class TrieNode:
     def __init__(self):
         self.children = {}  # 子节点字典，键是数字字符，值是 TrieNode
@@ -900,31 +1009,5 @@ for _ in range(t):
     numbers = [input().strip().replace(" ", "") for _ in range(n)]
     # 判断是否一致，输出结果
     print("YES" if is_consistent(numbers) else "NO")
-
-课程资料和情报：
-
-<mark>你的GitHub网址及截图</mark>。
-
-
-## 3. 课程总结
-
-如果愿意，请同学或多或少做一个本门课程的学习总结。便于之后师弟师妹跟进学习，也便于教师和助教改进教学。例如：分享自己的学习心得、笔记。
-
-闫老师班都是一群大佬，以下是一个普通甚至有点笨蛋的学生的闫老师班求生记（有点长不好意思）：
-
-一个学年就这样过去了，上学期机概 B 选了其他老师的课，却一直对闫老师的班有所耳闻——传说，这个班有超 nice 的老师、超高水平的助教老师、是 “卷王集中营”、也是 “最让人又爱又怕的班” 。学期初选课时，架不住朋友的疯狂安利，我这学期果断奔赴了闫老师的课，抢到名额时满心欢喜，后来才懂什么叫 “传说诚不我欺”。。。
-
-学期初的时候应该是因为多数同学上学期就跟着闫老师，所以这学期一开始就直接上强度开搞大模型，让我收到了不小的惊吓（我：？？？）；而我只是一个幸运抢上闫老师班又没什么接触编程的小白哈哈哈，好在大模型作业是选做的（当时感觉我这水平选上这门课属于是浪费了优质学术资源）。之后就改成六题编程作业了，依稀记得学期初的时候作业做的还可以算是顺利，而且很特别的是，之前跟其他老师的班，除了math包基本就没用过其他的包，今年在这个班里第一次接触了heapq、defaultdict等等的额外包；初期的一次作业中有个heap题目，我死磕着不用heap包，还在这部分折腾了好久，结果朋友说：“ 这包就是用来干这个的呀”，瞬间让我有种发现新世界的感觉（现在想想觉得好好笑）。
-
-但到了学期中，课业压力越来越重，从链表开始我就慢慢地跟不上了节奏了，每次都很努力地做作业，反复理解几遍思路，尽量把每个新接触的概念理解清楚，最后理解是理解了，但是一到实操就不会用T_T。到期末的时候，树、图这些知识点好像怪兽一样袭来，我也是很努力地拼死抵抗了，最后死磕成功把概念弄明白了，平时看题能有点思路，可动手写代码就歇菜，只能求助AI才能写出。。。
-
-到期末机考，我非常有自知之明，所以就把重心放在前几题简单题（当然各种算法也有复习到啦~），想尽量至少把简单题做了，加上闫老师在课上说过前几题是“签到题”，这让我一度非常有把握，结果上机发现：思路有了，但是怎么都写不出。。。（不够努力，菜就多练！）。甚至同为“简单题”的第二题是图！（我还以为至少前两题会出简单的字符串或者类似机概之类的题T_T）结果就是只会建图，过程不会写呜呜呜呜，我只能感叹不愧是传说中的闫宏飞老师班。之后听说其他班出了个“a+b”、“回文字符串”也是一度让我天打雷劈。之后备考笔试时，除了闫老师的github，我还去扒了其他老师的ppt来复习，考试时也非常尽力的答题，但是对各种算法不够深入了解，导致计算类的题比较吃力，但是也尽力思考，把试卷答满了哈哈哈。
-
-不知不觉啰里吧嗦写了一堆我的心理活动哈哈哈，真是不好意思，但是我说这些没有吐槽的意思！这一学期，我实实在在学到了超多东西；比如说学到了很多不同的包，感觉也是闫老师班的一个优势，可以灵活作答，而不是死板板的只能用基础python硬刚、而且感觉老师布置的作业都还蛮经典（？，就是如果掌握后遇到类似问题就可以瞬间一眼看出用什么方法来做，我也确实从老师布置的作业里更加巩固了一些上学期未能完全掌握的概念！（比如说二分法，原本只知道有这个方法，但是不知道可以怎么用，在什么情况用，现在现在懂了！）而且老师每道题都会提前讲思路，顺着这些思路去深挖知识，能迁移到好多其他题目里，实用又加分！还有，老师班里的资源超丰富：又有小北ai助力、又有专门的github指路、甚至还可以看到老师分享的阅读群（老师有时候会有一些冷幽默哈哈哈，超有趣！
-
-这一学期下来，总结就是：闫老师的班是真的好，但确实需要学生有扎实基础，不然就会跟不上节奏T_T。不过收获也是不少！就像我上学期没吃透的概念，现在理解更深了，而且对各种算法、模板、解题思路等等，也有了更进一步的认知！虽然感觉现在的我只窥探到一丢丢的编程语言的皮毛，但是感觉这对我绝对是个超棒的起点！（？
-
-
-
-Os：老师我努力把笔试答满了，作业也都按时提交并认真做了，请捞捞我吧！！！（图穷匕见（bushi）
+```
 
